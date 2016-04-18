@@ -4,6 +4,7 @@ if ( is_user_logged_in() ) {
 	$user            = wp_get_current_user();
 	$candidate_name  = $user->display_name;
 	$candidate_email = $user->user_email;
+	
 }else{
 	$candidate_name  = '';
 	$candidate_email = '';
@@ -67,6 +68,10 @@ foreach ($allowed_file_types as $type) {
 							<textarea class="form-control jform-validate" id="application_message" name="application_message" rows="5" placeholder="<?php esc_attr_e('Your cover letter/message sent to the employer','noo')?>"></textarea>
 						</div>
 						<div class="form-group">
+							<label for="application_message" class="control-label"><?php _e('Bid Amount','noo')?></label>
+							<input class="form-control jform-validate" id="application_bid" name="application_bid" placeholder="<?php esc_attr_e('30','noo')?>"/>
+						</div>
+						<div class="form-group">
 							<div class="row">
 								<?php if( $member_apply != 'yes' || $disable_member_upload != 'yes' ) : ?>
 									<div class="col-sm-6">
@@ -90,7 +95,10 @@ foreach ($allowed_file_types as $type) {
 										*/ ?>
 									</div>
 								<?php endif; ?>
-								<?php if($r && $r->post_count) : ?>
+								<?php 
+								
+								
+								if($r && $r->post_count) : ?>
 									<div class="col-sm-6">
 										<label for="email" class="control-label"><?php _e('Select','noo')?></label>
 										<div class="form-control-flat">
