@@ -46,7 +46,7 @@ $job_need_approve = Noo_Job::get_setting('noo_job_general', 'job_approve','' ) =
 							<th class="check-column"><div class="form-control-flat"><label class="checkbox"><input type="checkbox"><i></i></label></div></th>
 							<th><?php _e('Order','noo')?></th>
 							<th><?php _e('Job Title','noo')?></th>
-							<th class="hidden-xs">&nbsp;</th>
+							<!--<th class="hidden-xs">&nbsp;</th>-->
 							<th><?php _e('Catagory','noo')?></th>
 							<!--<th class="hidden-xs hidden-sm"><?php _e('Location','noo')?></th>-->
 							<th class="hidden-xs"><?php _e('Closing','noo')?></th>
@@ -89,8 +89,8 @@ $job_need_approve = Noo_Job::get_setting('noo_job_general', 'job_approve','' ) =
 										<a href="<?php the_permalink()?>"><strong><?php the_title()?></strong></a>
 									<?php endif; ?>
 								</td>
-								<td class="hidden-xs">
-									<?php
+								<!--<td class="hidden-xs">
+									<?php /*
 									$featured = noo_get_post_meta($post->ID,'_featured');
 									if( empty( $featured ) ) {
 										// Update old data
@@ -105,11 +105,13 @@ $job_need_approve = Noo_Job::get_setting('noo_job_general', 'job_approve','' ) =
 										</a>
 									<?php else : ?>
 										<span class="noo-job-feature not-featured" title="<?php _e('Set Featured','noo'); ?>"><i class="fa fa-star-o"></i></span>
-									<?php endif; ?>
-								</td>
+									<?php endif;*/ ?>
+								</td>-->
 								<td>
 									<?php 
-									
+									echo get_the_ID();
+									$data= get_post_meta(get_the_ID());
+								//print_r($data);
 									if( $status == 'pending' ) : ?>
 										<a href="<?php echo esc_url(add_query_arg( 'job_id', get_the_ID(), Noo_Member::get_endpoint_url('preview-job') )); ?>"><strong><?php the_ID()?></strong></a>
 									<?php else : ?>

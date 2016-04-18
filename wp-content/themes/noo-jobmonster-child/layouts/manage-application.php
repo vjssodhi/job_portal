@@ -70,6 +70,8 @@ do_action('noo_member_manage_application_before');
 						<?php 
 						while ($r->have_posts()): $r->the_post();global $post;
 						$job = get_post( $post->post_parent );
+						$attachment = noo_get_post_meta( $post->ID, '_attachment', '' );
+						
 						if ( $attachment = noo_get_post_meta( $post->ID, '_attachment', '' ) ) {
 							$attachment_icon = 'fa-eye';
 							$maybe_resume = is_numeric($attachment) ? get_post(absint($attachment)) : '';

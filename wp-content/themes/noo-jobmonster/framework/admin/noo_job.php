@@ -1688,7 +1688,9 @@ if(!class_exists('Noo_Job')) :
 						<input type="text" class="form-control" id="map-location-search" placeholder="<?php echo __('Search for a location...', 'noo'); ?>" autocomplete="off">
 					</div>
 				</div>
-				<?php if( $search_form == 'yes' && $fields_count > 1 ) : ?>
+				<?php
+
+				if( $search_form == 'yes' && $fields_count > 1 ) : ?>
 				<div class="job-advanced-search column-<?php echo esc_attr($fields_count); ?>">
 					<div class="job-advanced-search-wrap">
 						<form method="get" class="form-inline" action="<?php echo esc_url( home_url( '/' ) );?>">
