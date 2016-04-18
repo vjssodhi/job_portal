@@ -330,11 +330,14 @@ class Noo_Form_Handler {
 				)
 			);
 			$application = new WP_Query($application_args);
+			/*echo "<pre>";
+			print_r($application); exit;
 			if ( $application->post_count ) {
+				echo "1"; exit;
 				noo_message_add( __( 'You have already applied for this job', 'noo' ), 'error');
 				wp_safe_redirect(get_permalink($job_id));
 				exit();
-			}
+			}*/
 			$attachment = self::upload_file( 'application_attachment' );
 			if ( $attachment ) {
 				$meta['_attachment'] = $attachment;

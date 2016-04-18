@@ -69,11 +69,14 @@ $job_need_approve = Noo_Job::get_setting('noo_job_general', 'job_approve','' ) =
 								$status_text = __( 'Inactive', 'noo' );
 								$status_class = 'inactive';
 							}
+							
 						?>
 							<tr>
 								<td class="check-column"><div class="form-control-flat"><label class="checkbox"><input type="checkbox" name="ids[]" value="<?php the_ID()?>"><i></i></label></div></td>
 								<td>
-									<?php if( $status == 'pending' ) : ?>
+									<?php 
+									
+									if( $status == 'pending' ) : ?>
 										<a href="<?php echo esc_url(add_query_arg( 'job_id', get_the_ID(), Noo_Member::get_endpoint_url('preview-job') )); ?>"><strong><?php the_ID()?></strong></a>
 									<?php else : ?>
 										<a href="<?php the_permalink()?>"><strong><?php the_ID()?></strong></a>

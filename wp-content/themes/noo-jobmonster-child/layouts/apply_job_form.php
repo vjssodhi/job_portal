@@ -48,7 +48,7 @@ foreach ($allowed_file_types as $type) {
 			</div>
 			<div class="modal-body">
 				<?php if( $can_upload ) : ?>
-					<form id="apply_job_form" class="form-horizontal jform-validate" method="post" enctype="multipart/form-data">
+					<form id="apply_job_form" name="apply_job_form" class="form-horizontal jform-validate" method="post" enctype="multipart/form-data">
 						<div style="display: none">
 							<input type="hidden" name="action" value="apply_job"> 
 							<input type="hidden" name="job_id" value="<?php echo esc_attr($post->ID)?>">			
@@ -69,7 +69,7 @@ foreach ($allowed_file_types as $type) {
 						</div>
 						<div class="form-group">
 							<label for="application_message" class="control-label"><?php _e('Bid Amount','noo')?></label>
-							<input class="form-control jform-validate" id="application_bid" name="application_bid" placeholder="<?php esc_attr_e('30','noo')?>"/>
+							<input class="form-control jform-validate" required="required" id="application_bid" name="application_bid"  placeholder="<?php esc_attr_e('30','noo')?>"/>
 						</div>
 						<div class="form-group">
 							<div class="row">
@@ -117,7 +117,7 @@ foreach ($allowed_file_types as $type) {
 						<?php do_action( 'after_apply_job_form' ); ?>
 						<?php if ( $show_button == true ) : ?>
 							<div class="modal-actions">
-								<button type="submit" class="btn btn-primary"><?php _e('Send application','noo')?></button>
+								<button type="button" id="send_app" onclick="check_bid();" class="btn btn-primary"><?php _e('Send application','noo')?></button>
 							</div>
 						<?php endif; ?>
 					</form>
@@ -131,3 +131,19 @@ foreach ($allowed_file_types as $type) {
 		</div>
 	</div>
 </div>
+
+<script>
+function check_bid()
+{
+	var bid= jQuery("#application_bid").val();
+	var max_bid = jQuery(".value-_noo_job_field__max_bid_amount").text();
+	if(bid > max_bid)
+	{
+		alert("Your given bid amount is not accepted. It is more then the Maximum bid amount.");
+		return false;
+	}
+	else{
+		jQuery("#apply_job_form").submit();
+	}
+}
+</script>

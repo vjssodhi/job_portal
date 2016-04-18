@@ -262,6 +262,7 @@ class Noo_Application {
 	}
 
 	public static function new_job_application( $job_id, $candidate_name, $candidate_email, $application_message, $meta = array() , $send_notification = true){
+	
 		$job = get_post( $job_id );
 		if ( ! $job || $job->post_type !== 'noo_job' ) {
 			return false;
@@ -567,6 +568,7 @@ Best regards,<br/>
 	}
 
 	public static function has_applied( $candidate_id = 0, $job_id = 0 ) {
+		
 		if( empty( $candidate_id ) ) {
 			$candidate_id = get_current_user_id();
 		}

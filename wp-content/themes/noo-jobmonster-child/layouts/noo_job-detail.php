@@ -13,7 +13,9 @@
 ?>
 
 <div class="<?php if( $in_preview != true ) noo_main_class(); else echo $preview_class; ?>" role="main">
-	<?php if( $in_preview == true ) : ?>
+	<?php if( $in_preview == true ) : 
+
+	?>
 		<div class="job-head">
 			<div class="job-title">
 				<?php the_title( ); ?>
@@ -28,6 +30,8 @@
 			$default_fields = Noo_Job::get_default_fields();
 			$custom_fields = noo_get_custom_fields( Noo_Job::get_setting('noo_job_custom_field', array()), 'noo_jobs_custom_fields_' );
 			$fields = array_merge( array_diff_key($default_fields, $custom_fields), $custom_fields );
+	
+
 			$field_pos = Noo_Job::get_custom_fields_option('display_position', 'after');
 
 			if( $field_pos != 'before' ) {
@@ -36,19 +40,33 @@
 		?>
 		<?php if(!empty($fields)):?>
 		<div class="job-custom-fields">
-			<?php 
+			<?php
+	
 			foreach ((array) $fields as $field):
+			
+		
 				if( !isset( $field['name'] ) || empty( $field['name'] )) continue;
 				$field['type'] = isset( $field['type'] ) ? $field['type'] : 'text';
 				$id = '_noo_job_field_'.sanitize_title($field['name']);
+				
+				
+				$field['type'] = isset( $field['type'] ) ? $field['type'] : 'number';
+				$id = '_noo_job_field_'.sanitize_title($field['name']);
+				
 				if( array_key_exists($field['name'], $default_fields) ) {
 					if( isset( $field['is_disabled'] ) && ($field['is_disabled'] == 'yes') )
 						continue;
 					$id = $field['name'];
 				}
+				
+	
 				$label = isset( $field['label_translated'] ) ? $field['label_translated'] : $field['label'];
 				$value = noo_get_post_meta(get_the_ID(), $id, '');
+				
 				noo_display_custom_fields( $field, $value, $id, $field['type'], $label );
+			
+				
+				
 			endforeach; ?>
 		</div>
 		<?php endif;?>
@@ -73,6 +91,7 @@
 				$login_apply = Noo_Job::get_setting('noo_job_linkedin', 'member_apply',Noo_Job::get_setting('noo_job_general', 'member_apply','')) == 'yes';
 				$is_candidate = Noo_Member::is_candidate();
 				$has_applied = $is_candidate ? Noo_Application::has_applied( 50, $job_id ) : true;
+				
 				$custom_apply_link = Noo_Job::get_setting('noo_job_linkedin', 'custom_apply_link' );
 				$apply_url = !empty( $custom_apply_link ) ? noo_get_post_meta( $job_id, '_custom_application_url', '' ) : '';
 			?>
@@ -85,6 +104,7 @@
 						<div class="noo-messages noo-message-notice pull-left">
 							<ul>
 								<li><?php
+								
 								echo __('You have already applied for this job', 'noo'); ?></li>
 							</ul>
 						</div>
