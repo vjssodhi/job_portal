@@ -1,0 +1,55 @@
+<wpml-config>
+    <custom-fields>
+        <custom-field action="copy">_application_email</custom-field>
+        <custom-field action="copy">_closing</custom-field>
+        <custom-field action="copy">_expires</custom-field>
+        <custom-field action="copy">_expires</custom-field>
+        <custom-field action="translate">_language</custom-field>
+        <custom-field action="copy">_highest_degree</custom-field>
+        <custom-field action="copy">_experience_year</custom-field>
+        <custom-field action="copy">_job_category</custom-field>
+        <custom-field action="copy">_job_level</custom-field>
+        <custom-field action="copy">_job_location</custom-field>
+        <custom-field action="copy">_membership_package</custom-field>
+        <custom-field action="copy">_education_school</custom-field>
+        <custom-field action="copy">_education_qualification</custom-field>
+        <custom-field action="copy">_education_date</custom-field>
+        <custom-field action="copy">_education_note</custom-field>
+        <custom-field action="copy">_experience_employer</custom-field>
+        <custom-field action="copy">_experience_job</custom-field>
+        <custom-field action="copy">_experience_date</custom-field>
+        <custom-field action="copy">_experience_note</custom-field>
+        <custom-field action="copy">_skill_name</custom-field>
+        <custom-field action="copy">_skill_percent</custom-field>
+        <custom-field action="copy">_logo</custom-field>
+        <custom-field action="copy">_website</custom-field>
+        <custom-field action="copy">_facebook</custom-field>
+        <custom-field action="copy">_twitter</custom-field>
+        <custom-field action="copy">_googleplus</custom-field>
+        <custom-field action="copy">_linkedin</custom-field>
+        <custom-field action="copy">_instagram</custom-field>
+    </custom-fields>
+    <custom-types>
+        <custom-type translate="1">noo_job</custom-type>
+        <custom-type translate="1">noo_company</custom-type>
+        <custom-type translate="1">noo_application</custom-type>
+        <custom-type translate="1">noo_resume</custom-type>
+        <custom-type translate="1">noo_job_alert</custom-type>
+    </custom-types>    
+    <taxonomies>
+        <taxonomy translate="1">job_category</taxonomy>
+        <taxonomy translate="1">job_type</taxonomy>
+        <taxonomy translate="1">job_location</taxonomy>
+    </taxonomies>    
+    <admin-texts>
+        <key name="noo_job_general" >
+            <key name="default_job_content" />
+        </key>
+        <key name="theme_mods_noo-jobmonster">
+            <key name="noo_blog_heading_title"/>
+            <key name="noo_bottom_bar_content"/>
+        </key>
+    </admin-texts>
+</wpml-config>
+
+
