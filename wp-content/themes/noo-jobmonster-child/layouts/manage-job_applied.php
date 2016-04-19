@@ -58,6 +58,8 @@ if( $r->found_posts <= 1 ) {
 						<?php 
 						while ($r->have_posts()): $r->the_post();global $post;
 							$job = get_post( $post->post_parent );
+							
+							//print_r($job);
 							// don't display if there's no job.
 							if( empty( $job ) ) continue;
 							$company_id = Noo_Job::get_employer_company($job->post_author);
@@ -121,10 +123,15 @@ if( $r->found_posts <= 1 ) {
 								</td>
 								<td class="member-manage-actions hidden-xs text-center">
 									<?php do_action( 'noo-manage-job-applied-action', get_the_ID() ); ?>
-									<?php if( $post->post_status == 'pending' ) : ?>
+									<?php 
+									//echo $post->post_status;
+									if( $post->post_status == 'pending' ) : ?>
 										<a href="<?php echo wp_nonce_url( add_query_arg(array('action'=>'withdraw','application_id'=>get_the_ID())), 'job-applied-manage-action' );?>" class="member-manage-action action-delete" data-toggle="tooltip" title="<?php esc_attr_e('Withdraw','noo')?>"><i class="fa fa-history"></i></a>
 									<?php elseif( $post->post_status == 'inactive' ) : ?>
 										<a href="<?php echo wp_nonce_url( add_query_arg(array('action'=>'delete','application_id'=>get_the_ID())), 'job-applied-manage-action' );?>" class="member-manage-action action-delete" data-toggle="tooltip" title="<?php esc_attr_e('Delete Application','noo')?>"><i class="fa fa-trash-o"></i></a>
+									<?php elseif( $post->post_status == 'publish' ) : ?>
+									<a href="<?php echo wp_nonce_url( add_query_arg(array('action'=>'acceptOffer','application_id'=>get_the_ID())), 'job-applied-manage-action' );?>" class="member-manage-action action-delete" data-toggle="tooltip" title="<?php esc_attr_e('Accept Offer','noo')?>"><i class="fa fa-check-square-o"></i></a>
+			
 									<?php endif;?>
 									
 								</td>

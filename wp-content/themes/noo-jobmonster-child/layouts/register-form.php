@@ -44,9 +44,9 @@ if( $allow_register != 'none' ) :
 					<div class="form-control-flat">
 						<select class="user_role" name="user_role" required>
 							<option value=""><?php esc_html_e('-Select-','noo')?></option>
-							<option value="employer"><?php esc_html_e('Registration For Company','noo')?></option>
-							<option value="candidate"><?php esc_html_e('Registration For Recruiter','noo')?></option>
-							<!--<option value="customer"><?php esc_html_e('Registration looking for a job','noo')?></option>-->
+							<option value="employer"><?php esc_html_e('Company','noo')?></option>
+							<option value="candidate"><?php esc_html_e('Recruiter','noo')?></option>
+							<!--<option value="customer"><?php esc_html_e('Candidate','noo')?></option>-->
 						</select>
 						<i class="fa fa-caret-down"></i>
 					</div>

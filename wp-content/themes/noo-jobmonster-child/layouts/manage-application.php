@@ -7,22 +7,26 @@ if( is_front_page() || is_home()) {
 $job_filter = isset($_POST['job']) ? absint($_POST['job']) : 0;
 $job_ids = get_posts(array(
 	'post_type'=>'noo_job',
-	'post_status'=>array('publish','pending','expired'),
+	'post_status'=>array('publish','pending','expired','acceptOffer'),
 	'author'=>get_current_user_id(),
 	'posts_per_page'=>-1,
 	'fields' => 'ids'
 ));
+
 $args = array(
 	'post_type'=>'noo_application',
 	'paged' => $paged,
 	'post_parent__in'=>array_merge($job_ids, array(0)), // make sure return zero application if there's no job.
-	'post_status'=>array('publish','pending','rejected'),
+	'post_status'=>array('publish','pending','rejected','acceptOffer'),
 	
 );
 if(!empty($job_filter) && in_array($job_filter, $job_ids)){
 	$args['post_parent__in'] = array($job_filter);
 }
+
 $r = new WP_Query($args);
+echo "<pre>";
+print_r($r); exit;
 ob_start();
 do_action('noo_member_manage_application_before');
 ?>
@@ -66,10 +70,14 @@ do_action('noo_member_manage_application_before');
 					</tr>
 				</thead>
 				<tbody>
-					<?php if($r->have_posts()):?>
+					<?php 
+					
+					print_r($r->have_posts());
+					if($r->have_posts()):?>
 						<?php 
 						while ($r->have_posts()): $r->the_post();global $post;
 						$job = get_post( $post->post_parent );
+						
 						$attachment = noo_get_post_meta( $post->ID, '_attachment', '' );
 						
 						if ( $attachment = noo_get_post_meta( $post->ID, '_attachment', '' ) ) {
@@ -140,6 +148,7 @@ do_action('noo_member_manage_application_before');
 								
 								<td class="member-manage-actions hidden-xs text-center">
 									<?php
+									//echo $post->post_status;
 									if( $post->post_status == 'pending' ) :
 										$approve_link = '<a href="#" class="member-manage-action approve-reject-action" data-hander="approve" data-application-id="' . get_the_ID() . '" data-toggle="tooltip" title="' . esc_attr__('Approve Application','noo') . '"><i class="fa fa-check-square-o"></i></a>';
 										$reject_link = '<a href="#" class="member-manage-action approve-reject-action" data-hander="reject"  data-application-id="' . get_the_ID() . '" data-toggle="tooltip" title="' . esc_attr__('Reject Application','noo') . '"><i class="fa fa-ban"></i></a>';

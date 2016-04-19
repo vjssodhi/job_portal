@@ -640,6 +640,7 @@ class Noo_Form_Handler {
 			$msg_title = isset($_REQUEST['title']) ? trim($_REQUEST['title']) : '';
 			$msg_body = isset($_REQUEST['message']) ? wp_kses_post( trim( stripslashes( $_REQUEST['message'] ) ) ) : '';
 			$company = get_post(absint(Noo_Job::get_employer_company(get_current_user_id())));
+			
 			if ( is_multisite() )
 				$blogname = $GLOBALS['current_site']->site_name;
 			else
@@ -1491,6 +1492,7 @@ Best regards,<br/>
 	}
 
 	public static function manage_job_applied_action(){
+		
 		if(!is_user_logged_in())
 			return;
 		$action = self::current_action();
@@ -1519,6 +1521,48 @@ Best regards,<br/>
 						do_action('manage_application_action_withdraw',$ids);
 						wp_safe_redirect( Noo_Member::get_endpoint_url('manage-job-applied') );
 						die;
+					break;
+					case 'acceptOffer':
+						$offeraccept = 0;
+						
+						foreach ((array) $ids as $application_id){
+							
+							if ( !wp_update_post(array( 'ID' => $application_id, 'post_status' => 'acceptOffer' )) ) {
+								wp_die( __('Error when accepting offer.','noo') );
+							}
+							
+							/*$msg_title='Congratulations! Your Job offer accepted';
+							$msg_body='We received your Offer for the job and happy on accepting it.\nBest regards.';
+							update_post_meta($application_id, '_recruiter_message_title', $msg_title);
+							update_post_meta($application_id, '_recruiter_message_body', $msg_body);
+
+							do_action('manage_application_action_approve',$application_id);
+							*/
+
+							$to = noo_get_post_meta($application_id,'_candidate_email');
+							$candidate_name = get_the_title($application_id);
+							if(is_email($to)){
+								//candidate email
+								$subject = sprintf(__('%1$s has responsed to your application','noo'),get_the_title($company->ID));
+								$message = __( 'Hi %1$s,
+%2$s has just accepted the job offer for your application for job  <a href="%3$s">%4$s</a> with message: 
+<br/>
+<div style="font-style: italic;">						
+%5$s
+</div>
+<br/>
+You can manage your applications in <a href="%6$s">Manage Application</a>.
+<br/>
+Best regards,<br/>
+%7$s','noo');
+								noo_mail($to, $subject, sprintf($message,$candidate_name,get_the_title($company->ID),get_permalink($application->post_parent),get_the_title($application->post_parent),$msg_body,Noo_Member::get_endpoint_url('manage-job-applied'),$blogname),array(),'noo_notify_job_apply_approve_candidate');
+							}
+							$offeraccept ++;
+						}
+						noo_message_add(sprintf(__('Offer Accepted for %s application','noo'),$offeraccept));
+						wp_safe_redirect( Noo_Member::get_endpoint_url('manage-job-applied') );
+						die;
+						break;
 					break;
 					case 'delete':
 						$deleted = 0;
